@@ -1,0 +1,43 @@
+# TaskPilot Project
+
+## Purpose
+TaskPilot is a lightweight task management application.
+
+Users can:
+- add tasks
+- mark tasks as completed
+- delete tasks
+- filter active and completed tasks
+
+Tasks are stored using browser localStorage.
+
+## Stack
+
+- HTML
+- CSS
+- JavaScript
+- localStorage
+
+No backend is used.
+No external database is used.
+
+## Architecture Rules
+- Keep the project inside a single HTML file
+- Do not introduce frameworks
+- Use browser localStorage for persistence
+- Keep styling minimal and responsive
+
+
+## Key Functions
+- addTask()
+- toggleTask()
+- deleteTask()
+- setFilter()
+- render()
+- escHtml()
+
+## Constraints
+- Do not use external libraries
+- Do not use React or backend frameworks
+- Preserve existing filter behavior
+- Preserve localStorage compatibility
