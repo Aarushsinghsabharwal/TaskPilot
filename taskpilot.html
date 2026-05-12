@@ -238,39 +238,37 @@
     <p class="footer" id="footer-count"></p>
   </div>
 
+  <script src="taskpilot-core.js"></script>
   <script>
-    let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const store = makeTaskList(JSON.parse(localStorage.getItem('tasks') || '[]'));
     let filter = 'all';
 
-    // Set date
     const d = new Date();
     document.getElementById('date-label').textContent =
       d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
     function save() {
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      localStorage.setItem('tasks', JSON.stringify(store.getAll()));
     }
 
     function addTask() {
       const input = document.getElementById('task-input');
-      const text = input.value.trim();
-      if (!text) return;
-      tasks.unshift({ id: Date.now(), text, done: false });
-      save();
-      render();
-      input.value = '';
-      input.focus();
+      if (store.addTask(input.value)) {
+        save();
+        render();
+        input.value = '';
+        input.focus();
+      }
     }
 
     function toggleTask(id) {
-      const t = tasks.find(t => t.id === id);
-      if (t) t.done = !t.done;
+      store.toggleTask(id);
       save();
       render();
     }
 
     function deleteTask(id) {
-      tasks = tasks.filter(t => t.id !== id);
+      store.deleteTask(id);
       save();
       render();
     }
@@ -284,9 +282,8 @@
 
     function render() {
       const list = document.getElementById('task-list');
-      const visible = tasks.filter(t =>
-        filter === 'all' ? true : filter === 'done' ? t.done : !t.done
-      );
+      const visible = store.getVisible(filter);
+      const all = store.getAll();
 
       if (visible.length === 0) {
         list.innerHTML = `<div class="empty"><span>✦</span>${
@@ -312,14 +309,10 @@
         `).join('');
       }
 
-      const done = tasks.filter(t => t.done).length;
-      const total = tasks.length;
+      const done = store.getDoneCount();
+      const total = all.length;
       document.getElementById('footer-count').textContent =
         total === 0 ? '' : `${done} of ${total} completed`;
-    }
-
-    function escHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
     document.getElementById('task-input').addEventListener('keydown', e => {
