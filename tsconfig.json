@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "checkJs": true,
+    "allowJs": true,
+    "strict": true,
+    "target": "ES2020",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "skipLibCheck": true,
+    "types": ["jest"]
+  },
+  "include": ["taskpilot-core.js", "taskpilot.test.js"]
+}

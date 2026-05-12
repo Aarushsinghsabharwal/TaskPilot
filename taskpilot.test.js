@@ -129,6 +129,7 @@ describe('makeTaskList – deleteTask', () => {
 });
 
 describe('makeTaskList – getVisible (filter)', () => {
+  /** @type {ReturnType<typeof makeTaskList>} */
   let store;
   beforeEach(() => {
     store = makeTaskList([
