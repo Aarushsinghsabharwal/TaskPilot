@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint taskpilot-core.js taskpilot.test.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "node build.js"
   },
   "type": "module",
   "devDependencies": {
